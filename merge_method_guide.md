@@ -25,6 +25,9 @@ merge_method: flattened
 ```
 
 ## 2.通过Pull Request评论的方式进行合入方式切换
+命令使用方式说明：
+en：https://gitee.com/openeuler/community/blob/master/en/sig-infrastructure/command.md
+zh：https://gitee.com/openeuler/community/blob/master/zh/sig-infrastructure/command.md
 ### (1) 使用 "/rebase"命令
 通过 ***/rebase*** 命令给Pull Request加上***merge/rebase***标签，标志着此合并请求将以变基合并的方式合入(rebase merge)，如果需要切换合并方式，
 请使用 ***/rebase cancel*** 去掉***merge/rebase***标签。
