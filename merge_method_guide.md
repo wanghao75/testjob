@@ -13,7 +13,7 @@ type: public
 merge_method: rebase
 ```
 
-flattened example：
+squash example：
 ```yaml
 name: A-Tune-BPF-Collection
 description: A-Tune-BPF-Collection is BPF based tunning tools collection
@@ -21,7 +21,17 @@ branches:
 - name: master
   type: protected
 type: public
-merge_method: flattened
+merge_method: squash
+```
+
+default example:
+```yaml
+name: A-Tune-BPF-Collection
+description: A-Tune-BPF-Collection is BPF based tunning tools collection
+branches:
+- name: master
+  type: protected
+type: public
 ```
 
 ## 2.通过Pull Request评论的方式进行合入方式切换
