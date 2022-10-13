@@ -26,14 +26,16 @@ merge_method: flattened
 
 ## 2.通过Pull Request评论的方式进行合入方式切换
 命令使用方式说明：
+<br>
 en：https://gitee.com/openeuler/community/blob/master/en/sig-infrastructure/command.md
+<br>
 zh：https://gitee.com/openeuler/community/blob/master/zh/sig-infrastructure/command.md
 ### (1) 使用 "/rebase"命令
 通过 ***/rebase*** 命令给Pull Request加上***merge/rebase***标签，标志着此合并请求将以变基合并的方式合入(rebase merge)，如果需要切换合并方式，
 请使用 ***/rebase cancel*** 去掉***merge/rebase***标签。
-### (2) 使用 "/flattened"命令
-通过 ***/flattened*** 命令给Pull Request加上***merge/flattened***标签，标志着此合并请求将以扁平化分支合并的方式合入(flattened merge)，如果需要切换合并方式，
-请使用 ***/flattened cancel*** 去掉***merge/flattened***标签。
+### (2) 使用 "/squash"命令
+通过 ***/squash*** 命令给Pull Request加上***merge/squash***标签，标志着此合并请求将以扁平化分支合并的方式合入(squash merge)，如果需要切换合并方式，
+请使用 ***/squash cancel*** 去掉***merge/squash***标签。
 ### (3)两者均不使用
 Pull Request将以默认的***merge***的方式进行合入。
 
