@@ -1,6 +1,6 @@
 # openEuler社区单仓Pull Request合入方式指引
 ## 1.单一仓库文件增加merge_method字段配置方式
-当前Gitee平台对PR的合入方式提供了三种：***merge***， ***rebase merge***， ***flattened merge***，***merge***是默认的合入方式，可不用进行单独配置。
+当前Gitee平台对PR的合入方式提供了三种：***merge***， ***rebase merge***， ***squash merge***，***merge***是默认的合入方式，可不用进行单独配置。
 
 rebase example：
 ```yaml
