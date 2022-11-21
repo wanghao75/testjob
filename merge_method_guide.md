@@ -1,10 +1,10 @@
 # openEuler社区单仓Pull Request合入方式指引
-rebase merge: 变基合并，将所有的提交都合并到目标分支，且在目标仓库的目标分支的changelog中不包含pull request的title.
+rebase merge: 变基合并，将所有的提交都合并到目标分支，且在目标仓库的目标分支的changelog中不包含pull request的title.<br>
 rebase example:<br>
 ![rebase](https://github.com/wanghao75/testjob/blob/master/rebase.png)
 ![rebase-git](https://github.com/wanghao75/testjob/blob/master/rebase-git.png)
 <br>
-squash merge: 扁平化分支合并，将所有的提交合并为一个新的提交，并且合并到目标分支上.
+squash merge: 扁平化分支合并，将所有的提交合并为一个新的提交，并且合并到目标分支上.<br>
 squash example: <br>
 ![squash](https://github.com/wanghao75/testjob/blob/master/squash.png)
 ![squash-git](https://github.com/wanghao75/testjob/blob/master/squash-git.png)
