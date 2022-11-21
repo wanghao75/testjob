@@ -4,10 +4,14 @@ rebase example:<br>
 ![rebase](https://github.com/wanghao75/testjob/blob/master/rebase.png)
 ![rebase-git](https://github.com/wanghao75/testjob/blob/master/rebase-git.png)
 <br>
-squash merge: 扁平化分支合并，将所有的提交合并为一个新的提交，并且合并到目标分支上.<br>
+squash merge: 扁平化分支合并，将所有的提交合并为一个以PR的title为名的新的提交，然后合并到目标分支上.<br>
 squash example: <br>
 ![squash](https://github.com/wanghao75/testjob/blob/master/squash.png)
-![squash-git](https://github.com/wanghao75/testjob/blob/master/squash-git.png)
+![squash-git](https://github.com/wanghao75/testjob/blob/master/squash-git.png)<br>
+default merge: 合并分支（默认方式），将所有提交以及新创建一个以PR的title为名的提交均合并到目标分支上.
+![default](https://github.com/wanghao75/testjob/blob/master/default.png)
+![default-git](https://github.com/wanghao75/testjob/blob/master/default-git.png)<br>
+tips: examples中的测试用例均为有两个提交的PR，测试了三种不同的合入方式<br>
 ## 1.单一仓库文件增加merge_method字段配置方式
 当前Gitee平台对PR的合入方式提供了三种：***merge***， ***rebase merge***， ***squash merge***，***merge***是默认的合入方式，可不用进行单独配置。
 
