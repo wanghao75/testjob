@@ -1,4 +1,10 @@
 # openEuler社区单仓Pull Request合入方式指引
+rebase merge: 变基合并，将所有的提交都合并到目标分支，且在目标仓库的目标分支的changelog中不包含pull request的title.
+![rebase](https://github.com/wanghao75/testjob/blob/master/rebase.png)
+![rebase-git](https://github.com/wanghao75/testjob/blob/master/rebase-git.png)
+squash merge: 扁平化分支合并，将所有的提交合并为一个新的提交，并且合并到目标分支上.
+![squash](https://github.com/wanghao75/testjob/blob/master/squash.png)
+![squash-git](https://github.com/wanghao75/testjob/blob/master/squash-git.png)
 ## 1.单一仓库文件增加merge_method字段配置方式
 当前Gitee平台对PR的合入方式提供了三种：***merge***， ***rebase merge***， ***squash merge***，***merge***是默认的合入方式，可不用进行单独配置。
 
