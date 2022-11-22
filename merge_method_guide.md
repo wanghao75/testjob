@@ -1,6 +1,6 @@
 # openEuler社区单仓Pull Request合入方式指引
 ## 0.社区PR合入方式对比
-1.rebase merge: 变基合并，将所有的提交都合并到目标分支，且在目标仓库的目标分支的changelog中不包含pull request的title.<br>
+1.rebase merge: 变基合并，将所有的提交都合并到目标分支，且在目标仓库的目标分支的changelog中不包含pull request的任何信息.<br>
 rebase example:<br>
 ![rebase](https://github.com/wanghao75/testjob/blob/master/rebase.png)
 ![rebase-git](https://github.com/wanghao75/testjob/blob/master/rebase-git.png)
