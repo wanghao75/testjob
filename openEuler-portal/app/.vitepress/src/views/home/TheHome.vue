@@ -1,0 +1,205 @@
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useData } from 'vitepress';
+import AOS from 'aos';
+
+import { useI18n } from '@/i18n';
+import { useCommon } from '@/stores/common';
+
+import UserCase from './UserCase.vue';
+import CommunityActivity from './CommunityActivity.vue';
+import HomeBanner from './HomeBanner.vue';
+import HomeCarousel from './HomeCarousel.vue';
+import HomePlayground from './HomePlayground.vue';
+import HomeNav from './HomeNav.vue';
+import HomeNews from './HomeNews.vue';
+import AppCalendar from '@/components/AppCalendar.vue';
+import AppContent from '@/components/AppContent.vue';
+import LinkPanel from '@/components/LinkPanel.vue';
+
+import { getMeetingData, getActivityData } from '@/api/api-calendar';
+import { getSortData } from '@/api/api-search';
+import { TableData } from '@/shared/@types/type-calendar';
+
+const { lang } = useData();
+const commonStore = useCommon();
+
+const calendarData = ref<TableData[]>([
+  {
+    date: '',
+    timeData: [
+      {
+        creator: '',
+        duration_time: '',
+        join_url: '',
+        startTime: '',
+        start_date: '',
+        endTiem: '',
+        url: '',
+        id: '',
+      },
+    ],
+  },
+]);
+const i18n = useI18n();
+
+const caseData = ref(undefined);
+const newsData = ref(undefined);
+const blogData = ref(undefined);
+onMounted(async () => {
+  const body = document.querySelector('body');
+  if (body) {
+    body.classList.add('home-loading');
+  }
+  AOS.init({
+    offset: 50,
+    duration: 800,
+    delay: 100,
+    once: true,
+  });
+  const paramsCase = {
+    category: 'showcase',
+    lang: lang.value,
+    page: 1,
+    pageSize: 100,
+  };
+  const paramsNews = {
+    category: 'news',
+    lang: lang.value,
+    page: 1,
+    pageSize: 4,
+  };
+  const paramsBlog = {
+    category: 'blog',
+    lang: lang.value,
+    page: 1,
+    pageSize: 4,
+  };
+  try {
+    Promise.all([getActivityData(), getMeetingData()]).then((res) => {
+      res[0].tableData.forEach((item: any) => {
+        item.timeData.map((item2: any) => {
+          item2['startTime'] = item2.start_date;
+        });
+      });
+      calendarData.value = [...res[0].tableData, ...res[1].tableData];
+      calendarData.value.reduce((prev: any, current: any) => {
+        const item: any = prev.find(
+          (sameDate: any) => sameDate.start_date === current.date
+        );
+        item
+          ? (item.timeData = item.timeData.concat(current.timeData))
+          : prev.push(current);
+        return prev;
+      }, []);
+    });
+  } catch (e: any) {
+    throw new Error(e);
+  }
+  try {
+    const responeData = await getSortData(paramsCase);
+    caseData.value = responeData;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+  try {
+    const responeData = await getSortData(paramsNews);
+    newsData.value = responeData;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+  try {
+    const responeData = await getSortData(paramsBlog);
+    blogData.value = responeData;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+});
+onUnmounted(() => {
+  const body = document.querySelector('body');
+  if (body) {
+    body.classList.remove('home-loading');
+  }
+});
+</script>
+
+<template>
+  <HomeBanner />
+  <AppContent>
+    <OContainer data-aos="fade-up" class="home-nav" :level-index="1"
+      ><HomeNav
+    /></OContainer>
+    <HomeCarousel />
+    <UserCase v-if="caseData" :case-data="caseData" />
+    <CommunityActivity />
+    <HomeNews
+      v-if="blogData && newsData"
+      :blog-data="blogData"
+      :news-data="newsData"
+    />
+    <ClientOnly>
+      <div
+        v-if="lang === 'zh' && calendarData.length > 1"
+        class="home-calendar"
+      >
+        <h3>{{ i18n.home.HOME_CALENDAR }}</h3>
+        <AppCalendar
+          id="meeting"
+          :table-data="calendarData"
+          data-aos="fade-up"
+        />
+      </div>
+    </ClientOnly>
+    <HomePlayground />
+    <h3 class="partner">
+      {{ i18n.home.HOME_SOURCE.SOURCE_PUBLISH_TITLE }}
+    </h3>
+    <p class="rank-tip">{{ i18n.home.RANK_TIP }}</p>
+    <LinkPanel
+      :link-list="i18n.home.HOME_SOURCE_EDITION"
+      :theme="commonStore.theme === 'light' ? 'light' : 'dark'"
+    ></LinkPanel>
+    <h3>{{ i18n.home.HOME_SOURCE.SOURCE_LINK_TITLE }}</h3>
+    <LinkPanel
+      :link-list="i18n.home.FRIENDSHIP_LINK_LIST"
+      :theme="commonStore.theme === 'light' ? 'light' : 'dark'"
+    ></LinkPanel>
+  </AppContent>
+</template>
+
+<style lang="scss" scoped>
+.home-nav {
+  position: relative;
+  z-index: 10;
+}
+h3 {
+  font-size: var(--o-font-size-h3);
+  font-weight: 300;
+  color: var(--o-color-text1);
+  line-height: var(--o-line-height-h3);
+  width: 100%;
+  text-align: center;
+  margin-top: var(--o-spacing-h1);
+  margin-bottom: var(--o-spacing-h2);
+  @media (max-width: 768px) {
+    font-size: var(--o-font-size-h8);
+    line-height: var(--o-line-height-h8);
+    margin-top: var(--o-spacing-h2);
+    margin-bottom: var(--o-spacing-h5);
+  }
+}
+
+html[lang='zh'] .partner {
+  margin-bottom: 0;
+}
+.rank-tip {
+  margin: var(--o-spacing-h5) 0 var(--o-spacing-h4);
+  text-align: center;
+  font-size: var(--o-font-size-tip);
+  font-weight: 400;
+  color: var(--o-color-text1);
+  @media screen and (max-width: 768px) {
+    margin: var(--o-spacing-h7) 0 var(--o-spacing-h6);
+  }
+}
+</style>
