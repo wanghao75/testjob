@@ -37,7 +37,7 @@ containers:
       - /bin/sh
       - -c
       - |
-        echo "create"                        # 容器启动时所需的命令
+        echo "create"
     readinessProbe:                  # 容器就绪探针定义
       tcpSocket:
         port:                       # 监听端口，与容器暴露端口一致
