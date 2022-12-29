@@ -14,7 +14,7 @@ containers:
     args: 
       - --port=8888                           # 容器内代码运行所需参数
     image: swr.huawei.com/openeuler/infra/test-server:dadasf554251s                           # 镜像id
-	volumeMounts:                    # 挂载
+    volumeMounts:                    # 挂载
       - mountPath: /bot/data                  # 挂载路径
         name:  data-volume                      # 名称
       - mountPath: /etc/secrets
