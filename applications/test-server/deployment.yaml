@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helios-server-test
+  namespace: helios-server-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helios-server-test
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: helios-server-test
+    spec:
+      containers:
+      - args: null
+        command: null
+        env:
+        - name: GH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              key: GH_CLIENT_ID
+              name: helios-server-test-secrets
+        image: swr.cn-north-4.myhuaweicloud.com/opensourceway/helios-server/helios-voting:master-0e6254f
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          successThreshold: 1
+          tcpSocket:
+            port: null
+          timeoutSeconds: 5
+        name: helios
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: null
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 3000Mi
+          requests:
+            cpu: 1000m
+            memory: 2000Mi
